@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-otus-k8s-service
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-otus-k8s-service
+  template:
+    metadata:
+      labels:
+        app: my-otus-k8s-service
+    spec:
+      containers:
+      - name: my-otus-k8s-service
+        image: vspeach/otus-k8s-deploy:2.0
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
