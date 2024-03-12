@@ -7,6 +7,11 @@ spec:
   selector:
     matchLabels:
       app: my-otus-k8s-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
       labels:
@@ -14,7 +19,16 @@ spec:
     spec:
       containers:
       - name: my-otus-k8s-service
-        image: vspeach/otus-k8s-deploy:2.0
+        image: vspeach/otus-k8s-deploy:latest
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            port: 8000
+            path: /health
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          successThreshold: 2
+          timeoutSeconds: 1
         resources:
           limits:
             memory: "128Mi"

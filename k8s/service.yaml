@@ -4,7 +4,7 @@ metadata:
   name: my-otus-k8s-svc
 spec:
   selector:
-    app: my-otus-k8s-svc
+    app: my-otus-k8s-service
   ports:
   - port: 80
     targetPort: 8000
